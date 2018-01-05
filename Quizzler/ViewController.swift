@@ -10,10 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //Place your instance variables here
     let questions = QuestionBank()
     var questionNumber : Int = 0
     var pickedAnswer : Bool = false
+    var score : Int = 0
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -22,9 +22,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateUI()
         nextQuestion()
     }
-
 
     @IBAction func answerPressed(_ sender: AnyObject) {
         if sender.tag == 1 {
@@ -35,16 +35,17 @@ class ViewController: UIViewController {
         }
         
         checkAnswer()
+        updateUI()
         questionNumber += 1
         nextQuestion()
     }
     
-    
     func updateUI() {
-      
+        scoreLabel.text = "Score: \(score)"
+        progressLabel.text = "\(questionNumber + 1) / 13"
+        progressBar.frame.size.width = (view.frame.size.width / 13) * CGFloat(questionNumber + 1)
     }
     
-
     func nextQuestion() {
         if questionNumber < 13 {
             questionLabel.text = questions.list[questionNumber].questionText
@@ -64,6 +65,7 @@ class ViewController: UIViewController {
     func checkAnswer() {
         if pickedAnswer == questions.list[questionNumber].answer {
             print("You got it!")
+            score += 1
         }
         else {
             print("Wrong")
@@ -74,6 +76,8 @@ class ViewController: UIViewController {
     func startOver() {
         print("Start over")
         questionNumber = 0
+        score = 0
+        updateUI()
         nextQuestion()
     }
     
