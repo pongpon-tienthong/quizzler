@@ -4,7 +4,6 @@
 //
 //  Created by Angela Yu on 25/08/2015.
 //  Copyright (c) 2015 London App Brewery. All rights reserved.
-//
 
 import UIKit
 
@@ -61,26 +60,20 @@ class ViewController: UIViewController {
         }
     }
     
-    
     func checkAnswer() {
         if pickedAnswer == questions.list[questionNumber].answer {
-            print("You got it!")
+            ProgressHUD.showSuccess("Correct!")
             score += 1
         }
         else {
-            print("Wrong")
+            ProgressHUD.showError("Wrong!")
         }
     }
     
-    
     func startOver() {
-        print("Start over")
         questionNumber = 0
         score = 0
         updateUI()
         nextQuestion()
     }
-    
-
-    
 }
