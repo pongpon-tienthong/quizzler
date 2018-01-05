@@ -22,8 +22,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        questionLabel.text = questions.list[0].questionText
+        nextQuestion()
     }
 
 
@@ -35,12 +34,8 @@ class ViewController: UIViewController {
             pickedAnswer = false
         }
         
-        if pickedAnswer == questions.list[0].answer {
-            print("You got it!")
-        }
-        else {
-            print("Wrong")
-        }
+        checkAnswer()
+        nextQuestion()
     }
     
     
@@ -50,17 +45,29 @@ class ViewController: UIViewController {
     
 
     func nextQuestion() {
-        
+        questionNumber += 1
+        if questionNumber < 13 {
+            questionLabel.text = questions.list[questionNumber].questionText
+        }
+        else {
+            startOver()
+        }
     }
     
     
     func checkAnswer() {
-        
+        if pickedAnswer == questions.list[questionNumber].answer {
+            print("You got it!")
+        }
+        else {
+            print("Wrong")
+        }
     }
     
     
     func startOver() {
-       
+        print("Start over")
+        questionNumber = 0
     }
     
 
